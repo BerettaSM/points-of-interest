@@ -7,25 +7,25 @@
 
     <changeSet id="1" author="ramon">
         <createTable tableName="TBL_POINT_OF_INTEREST" remarks="A table to persist points of interest.">
-            <column name="poi_id" type="INTEGER" autoIncrement="true">
+            <column name="POI_ID" type="INTEGER" autoIncrement="true">
                 <constraints
                     primaryKey="true"
                     nullable="false"
                     unique="true"
                 />
             </column>
-            <column name="name" type="VARCHAR(255)" >
+            <column name="NAME" type="VARCHAR(255)" >
                 <constraints
                     nullable="false"
                     unique="true"
                 />
             </column>
-            <column name="x" type="INTEGER">
+            <column name="X" type="INTEGER">
                 <constraints
                     nullable="false"
                 />
             </column>
-            <column name="y" type="INTEGER">
+            <column name="Y" type="INTEGER">
                 <constraints
                     nullable="false"
                 />

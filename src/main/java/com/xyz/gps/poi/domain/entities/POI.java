@@ -1,5 +1,9 @@
-package com.xyz.gps.poi.domain.entity;
+package com.xyz.gps.poi.domain.entities;
 
+import com.xyz.gps.poi.domain.model.Coordinate;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,9 +25,12 @@ public class POI {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
+    @Column(name = "POI_ID")
     private Long id;
     private String name;
-    private Long x;
-    private Long y;
+    
+    @Embedded
+    private Coordinate coords;
     
 }
