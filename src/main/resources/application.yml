@@ -1,3 +1,10 @@
 spring:
     application:
         name: Points of Interest
+    jpa:
+        open-in-view: false 
+    liquibase:
+        change-log: classpath:/db/changelog/db.changelog-master.xml
+        enabled: true
+    profiles:
+        active: ${APP_PROFILE:dev}
