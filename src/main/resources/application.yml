@@ -5,6 +5,7 @@ spring:
         open-in-view: false 
     liquibase:
         change-log: classpath:/db/changelog/db.changelog-master.xml
+        contexts: base
         enabled: true
     profiles:
         active: ${APP_PROFILE:dev}
