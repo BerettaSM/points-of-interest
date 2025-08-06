@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.xyz.gps.poi.controllers.requests.SearchByProximityCriteria;
+import com.xyz.gps.poi.controllers.responses.PageWithExtraInfo;
 import com.xyz.gps.poi.domain.dto.POIDto;
 import com.xyz.gps.poi.services.POIService;
 
@@ -31,6 +33,15 @@ public class POIController {
     @GetMapping
     public ResponseEntity<Page<POIDto>> findAll(Pageable pageable) {
         return ResponseEntity.ok(poiService.findAll(pageable));
+    }
+
+    @GetMapping("/near")
+    public ResponseEntity<PageWithExtraInfo<POIDto>> findByProximity(
+            @Valid SearchByProximityCriteria criteria,
+            Pageable pageable) {
+        Page<POIDto> page = poiService.findByProximity(criteria, pageable);
+        PageWithExtraInfo<POIDto> pageWithExtraInfo = new PageWithExtraInfo<>(page).addExtraInfo("criteria", criteria);
+        return ResponseEntity.ok(pageWithExtraInfo);
     }
 
     @GetMapping("/{slug}")

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.xyz.gps.poi.controllers.requests.SearchByProximityCriteria;
 import com.xyz.gps.poi.domain.dto.POIDto;
 import com.xyz.gps.poi.domain.entities.POI;
 import com.xyz.gps.poi.repositories.POIRepository;
@@ -25,6 +26,16 @@ public class POIService {
     public Page<POIDto> findAll(Pageable pageable) {
         return poiRepository.findAll(pageable)
                 .map(POIDto::from);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<POIDto> findByProximity(SearchByProximityCriteria criteria, Pageable pageable) {
+        return poiRepository.findByProximity(
+                criteria.getX(),
+                criteria.getY(),
+                criteria.getRadius(),
+                pageable)
+            .map(POIDto::from);
     }
 
     @Transactional(readOnly = true)

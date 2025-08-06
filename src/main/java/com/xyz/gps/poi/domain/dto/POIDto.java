@@ -3,6 +3,7 @@ package com.xyz.gps.poi.domain.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.xyz.gps.poi.domain.entities.POI;
 import com.xyz.gps.poi.domain.model.Coordinate;
+import com.xyz.gps.poi.domain.projections.POIWithDistanceProjection;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -32,11 +33,14 @@ public class POIDto {
     @PositiveOrZero(message = "Coordinate 'y' must be a positive value.")
     private Long y;
 
+    private Long distance;
+
     public POIDto(POI poi) {
         name = poi.getName();
         slug = null;
         x = poi.getCoords().getX();
         y = poi.getCoords().getY();
+        distance = null;
     }
 
     public POI toEntity() {
@@ -45,6 +49,15 @@ public class POIDto {
 
     public static POIDto from(POI poi) {
         return new POIDto(poi);
+    }
+
+    public static POIDto from(POIWithDistanceProjection projection) {
+        return new POIDto(
+                projection.getName(),
+                null,
+                projection.getX(),
+                projection.getY(),
+                projection.getDistance());
     }
 
 }
