@@ -8,42 +8,49 @@
     <changeSet id="dev-seeding-1" author="ramon">
         <insert tableName="TBL_POINT_OF_INTEREST">
             <column name="NAME" value="Lanchonete"></column>
+            <column name="SLUG" value="lanchonete"></column>
             <column name="X" value="27"></column>
             <column name="Y" value="12"></column>
         </insert>
 
         <insert tableName="TBL_POINT_OF_INTEREST">
             <column name="NAME" value="Posto"></column>
+            <column name="SLUG" value="posto"></column>
             <column name="X" value="31"></column>
             <column name="Y" value="18"></column>
         </insert>
 
         <insert tableName="TBL_POINT_OF_INTEREST">
             <column name="NAME" value="Joalheria"></column>
+            <column name="SLUG" value="joalheria"></column>
             <column name="X" value="15"></column>
             <column name="Y" value="12"></column>
         </insert>
 
         <insert tableName="TBL_POINT_OF_INTEREST">
             <column name="NAME" value="Floricultura"></column>
+            <column name="SLUG" value="floricultura"></column>
             <column name="X" value="19"></column>
             <column name="Y" value="21"></column>
         </insert>
 
         <insert tableName="TBL_POINT_OF_INTEREST">
             <column name="NAME" value="Pub"></column>
+            <column name="SLUG" value="pub"></column>
             <column name="X" value="12"></column>
             <column name="Y" value="8"></column>
         </insert>
 
         <insert tableName="TBL_POINT_OF_INTEREST">
             <column name="NAME" value="Supermercado"></column>
+            <column name="SLUG" value="supermercado"></column>
             <column name="X" value="23"></column>
             <column name="Y" value="6"></column>
         </insert>
 
         <insert tableName="TBL_POINT_OF_INTEREST">
             <column name="NAME" value="Churrascaria"></column>
+            <column name="SLUG" value="churrascaria"></column>
             <column name="X" value="28"></column>
             <column name="Y" value="2"></column>
         </insert>

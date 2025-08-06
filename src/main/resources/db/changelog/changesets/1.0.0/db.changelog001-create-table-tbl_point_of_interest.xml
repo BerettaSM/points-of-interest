@@ -7,14 +7,13 @@
 
     <changeSet id="1" author="ramon">
         <createTable tableName="TBL_POINT_OF_INTEREST" remarks="A table to persist points of interest.">
-            <column name="POI_ID" type="INTEGER" autoIncrement="true">
+            <column name="NAME" type="VARCHAR(255)" >
                 <constraints
-                    primaryKey="true"
                     nullable="false"
                     unique="true"
                 />
             </column>
-            <column name="NAME" type="VARCHAR(255)" >
+            <column name="SLUG" type="VARCHAR(255)" >
                 <constraints
                     nullable="false"
                     unique="true"
@@ -22,11 +21,13 @@
             </column>
             <column name="X" type="INTEGER">
                 <constraints
+                    primaryKey="true"
                     nullable="false"
                 />
             </column>
             <column name="Y" type="INTEGER">
                 <constraints
+                    primaryKey="true"
                     nullable="false"
                 />
             </column>
