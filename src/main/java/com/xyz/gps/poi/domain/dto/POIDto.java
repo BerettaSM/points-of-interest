@@ -33,7 +33,7 @@ public class POIDto {
     @PositiveOrZero(message = "Coordinate 'y' must be a positive value.")
     private Long y;
 
-    private Long distance;
+    private Double distance;
 
     public POIDto(POI poi) {
         name = poi.getName();

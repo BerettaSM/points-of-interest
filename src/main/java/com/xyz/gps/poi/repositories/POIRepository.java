@@ -16,14 +16,14 @@ public interface POIRepository extends JpaRepository<POI, Coordinate> {
     Optional<POI> findBySlug(String slug);
 
     @Query(nativeQuery = true, value = """
-        SELECT name, x, y, FLOOR(SQRT(POWER(:x - x, 2) + POWER(:y - y, 2))) AS distance
+        SELECT name, x, y, ROUND(SQRT(POWER(:x - x, 2) + POWER(:y - y, 2)), 2) AS distance
         FROM TBL_POINT_OF_INTEREST
-        WHERE FLOOR(SQRT(POWER(:x - x, 2) + POWER(:y - y, 2))) <= :radius
+        WHERE SQRT(POWER(:x - x, 2) + POWER(:y - y, 2)) <= :radius
         ORDER BY distance
     """, countQuery = """
         SELECT COUNT(*)
         FROM TBL_POINT_OF_INTEREST
-        WHERE FLOOR(SQRT(POWER(:x - x, 2) + POWER(:y - y, 2))) <= :radius
+        WHERE SQRT(POWER(:x - x, 2) + POWER(:y - y, 2)) <= :radius
     """)
     Page<POIWithDistanceProjection> findByProximity(Long x, Long y, Long radius, Pageable pageable);
 
