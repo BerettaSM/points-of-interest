@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +13,7 @@ import com.xyz.gps.poi.controllers.requests.SearchByProximityCriteria;
 import com.xyz.gps.poi.domain.dto.POIDto;
 import com.xyz.gps.poi.domain.entities.POI;
 import com.xyz.gps.poi.repositories.POIRepository;
+import com.xyz.gps.poi.services.exceptions.DatabaseException;
 import com.xyz.gps.poi.util.SlugUtils;
 
 import lombok.RequiredArgsConstructor;
@@ -47,6 +49,9 @@ public class POIService {
     @Transactional
     public POIDto save(POIDto dto) {
         POI poi = dto.toEntity();
+        if (poiRepository.existsById(poi.getCoords())) {
+            throw new DatabaseException("Coordinate already registered.", HttpStatus.CONFLICT);
+        }
         poi.setSlug(SlugUtils.toSlug(dto.getName()));
         dto = POIDto.from(poiRepository.save(poi));
         dto.setSlug(poi.getSlug());
