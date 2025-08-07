@@ -1,7 +1,5 @@
 package com.xyz.gps.poi.services;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -15,6 +13,7 @@ import com.xyz.gps.poi.domain.dto.POIDto;
 import com.xyz.gps.poi.domain.entities.POI;
 import com.xyz.gps.poi.repositories.POIRepository;
 import com.xyz.gps.poi.services.exceptions.DatabaseException;
+import com.xyz.gps.poi.services.exceptions.ResourceNotFoundException;
 import com.xyz.gps.poi.util.SlugUtils;
 
 import lombok.RequiredArgsConstructor;
@@ -42,9 +41,10 @@ public class POIService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<POIDto> findBySlug(String slug) {
+    public POIDto findBySlug(String slug) {
         return poiRepository.findBySlug(slug)
-                .map(POIDto::from);
+                .map(POIDto::from)
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Transactional

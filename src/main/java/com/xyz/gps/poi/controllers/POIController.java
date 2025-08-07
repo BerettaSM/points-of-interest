@@ -46,9 +46,7 @@ public class POIController {
 
     @GetMapping("/{slug}")
     public ResponseEntity<POIDto> findBySlug(@PathVariable String slug) {
-        return poiService.findBySlug(slug)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return ResponseEntity.ok(poiService.findBySlug(slug));
     }
 
     @PostMapping
