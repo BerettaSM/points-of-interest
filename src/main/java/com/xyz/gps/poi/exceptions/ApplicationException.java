@@ -1,12 +1,9 @@
 package com.xyz.gps.poi.exceptions;
 
-import java.util.Optional;
-
 import org.springframework.http.HttpStatus;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import jakarta.servlet.http.HttpServletRequest;
+import com.xyz.gps.poi.util.PathUtils;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -28,15 +25,7 @@ public class ApplicationException extends RuntimeException {
     public ApplicationException(String message, HttpStatus status) {
         super(message);
         httpStatus = status;
-        path = getCurrentPath();
-    }
-
-    private String getCurrentPath() {
-        return Optional.ofNullable(RequestContextHolder.getRequestAttributes())
-                .map(req -> ((ServletRequestAttributes) req))
-                .map(ServletRequestAttributes::getRequest)
-                .map(HttpServletRequest::getRequestURI)
-                .orElse("Unknown path");
+        path = PathUtils.getCurrentPath();
     }
 
 }

@@ -3,6 +3,7 @@ package com.xyz.gps.poi.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -53,7 +54,13 @@ public class POIService {
             throw new DatabaseException("Coordinate already registered.", HttpStatus.CONFLICT);
         }
         poi.setSlug(SlugUtils.toSlug(dto.getName()));
-        dto = POIDto.from(poiRepository.save(poi));
+        try {
+            poi = poiRepository.saveAndFlush(poi);
+        }
+        catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Location name already registered.", HttpStatus.CONFLICT);
+        }
+        dto = POIDto.from(poi);
         dto.setSlug(poi.getSlug());
         return dto;
     }
